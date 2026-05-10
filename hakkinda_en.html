@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nASR Automation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #d4d4d4;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 { color: #4facf7; border-bottom: 2px solid #333; padding-bottom: 5px; }
+        h2 { color: #0098ff; margin-top: 25px; border-left: 4px solid #0098ff; padding-left: 10px; }
+        h3 { color: #4af626; }
+        .highlight { color: #ff9800; font-weight: bold; }
+        .badge { background-color: #333; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+        ul { background-color: #1e1e1e; padding: 15px 30px; border-radius: 5px; }
+        li { margin-bottom: 10px; }
+        .footer { margin-top: 40px; text-align: center; font-size: 0.9em; color: #888; border-top: 1px solid #333; padding-top: 10px; }
+        .open-source-box { 
+            background-color: #0c0c0c; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin-top: 30px; 
+            font-style: italic;
+            border-left: 4px solid #4af626;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>nASR Subtitle Automation <span style="font-size: 12pt; color: #888;">| v1.0</span></h1>
+    <p>AI-powered, portable, and fully autonomous subtitle generation engine. <span class="highlight">Critical Note:</span> The necessary models are downloaded "only during the first use" and absolutely <b>do not require an internet connection</b> during the operation. All processes take place locally on your hardware.</p>
+
+    <h2>⚙️ General Operation Logic and Security Failsafes</h2>
+    <p>nASR utilizes the <b>WhisperX</b> infrastructure, the world's fastest engine for speech-to-text conversion. When the program is launched, the "Universal Hardware Intelligence" running in the background analyzes your hardware and activates the following autonomous failsafes:</p>
+    <ul>
+        <li><b>Automatic Hardware Lock:</b> At startup, the program meticulously scans your graphics card (GPU) and its available memory (VRAM). If your computer lacks a suitable Nvidia GPU (only has a CPU) or if the VRAM amount is below the <span class="highlight">5.5 GB</span> threshold, it automatically disables the large-v3 model <b>to Prevent System Crashes</b>.</li>
+        <li><b>CPU Support:</b> When an Nvidia card is not found in the system, nASR does not give up; it autonomously switches to CPU mode. However, since the processing load will be placed on the system RAM (4-6 GB) in this mode, it is highly recommended to close your browser and other heavy applications for the health of the operation.</li>
+    </ul>
+
+    <h2>🧠 AI Models</h2>
+    <ul>
+        <li><b>Base (Fast):</b> Completes the transcription process in the blink of an eye. Ideal for daily use, YouTube videos, or getting a quick preview.</li>
+        <li><b>Medium (Balanced):</b> The golden ratio between speed and accuracy. With its VRAM-friendly structure, it runs smoothly with high accuracy even on older generation graphics cards.</li>
+        <li><b class="highlight">Large-v3 (Flawless):</b> The true masterpiece of the system, excelling in word accuracy, accent differentiation, and especially terminological success in philosophical/technical texts. <i>It only becomes active on powerful hardware with sufficient VRAM capacity.</i></li>
+    </ul>
+
+    <h2>🎛️ Filters and Advanced Settings</h2>
+    <ul>
+        <li><b>Batch Processing Queue:</b> Don't waste time with a single file. Drag and drop an entire season of a series or your massive movie archive into the interface. nASR ruthlessly clears the VRAM after each file and moves on to the next task with a pristine memory.</li>
+        <li><b>Quarantine Report (Zero Text Pollution):</b> Does not pollute your subtitle file with question marks or low-confidence words. It reports words the model is less than <span class="highlight">60% confident</span> about, along with their timestamps, to an external <i>_karantina.txt</i> file. This way, you can minimize your manual checking time by focusing only on doubtful areas.</li>
+        <li><b>Cinematographic Silence (VAD Parameters):</b> By tweaking the <i>Speech Onset</i> and <i>Silence Detection</i> sensitivity settings, you can filter out wind and music sounds; you can apply the "subtitles disappear instantly when the lips close" rule with millisecond precision.</li>
+        <li><b>Thermal Crash Insurance (JSON Backup):</b> If your graphics card reaches its limits and throws a CUDA error, your transcription effort of hours won't go to waste. nASR autonomously backs up the entire raw text to your disk right before moving to the alignment phase.</li>
+        <li><b>Audio Normalization and Noise Filter:</b> Preferred for videos with unbalanced audio levels or high background noise. It equalizes the audio to studio standards while reducing background static (afftdn), allowing the AI to hear the words more clearly.</li>
+        <li><b>Clean Filler Words:</b> Surgically removes hesitations like "uh, um, hmm, ah, er" in foreign languages from the text. This process not only increases text fluency but also makes the text <b>much more suitable and contextual for translation.</b></li>
+        <li><b>Specific Name / Pronunciation Hint (Initial Prompt):</b> To prevent the model from fabricating (hallucinating), you can give the model a "pre-knowledge" by writing technical terms or specific names that will appear in the text here, separated by commas.</li>
+        <li><b>Operation Mode:</b> The 'Translate to English' option provides you directly with a timed subtitle file translated into English, regardless of the source language (Japanese, French, etc.).</li>
+        <li><b>Automatic Language Detection:</b> Using this option prevents the model from scanning all language libraries, thereby speeding up the operation process. The "Auto" option in the language menu analyzes the first few seconds of the video and finds the language itself. </li>
+    </ul>
+
+    <h2>🎙️ Speaker Diarization</h2>
+    <p>If you want to distinguish speakers in dialogues (SPEAKER_00, SPEAKER_01, etc.), the Pyannote library steps in. You need a free <span class="highlight">HuggingFace Token</span> key for this process. Simply paste a "Read" authorized key you will get from huggingface.co into the relevant box.</p>
+
+    <div class="open-source-box">
+        nASR is a product of my unwavering belief that knowledge and software should be freely shared, developed, and not imprisoned behind walls. This project is a digital manifestation of my respect for the collective power of the open-source philosophy. Due to the complex nature of software, you can contribute to the evolution of nASR by reporting any systemic errors, logic glitches, or improvement suggestions you may encounter to <b>nutuzar@gmail.com</b>.
+    </div>
+
+    <div class="footer">
+        developed by <b>nutuzar</b> | nASR Automation v1.0
+    </div>
+
+</body>
+</html>

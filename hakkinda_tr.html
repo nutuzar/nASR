@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>nASR Otomasyonu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #d4d4d4;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 { color: #4facf7; border-bottom: 2px solid #333; padding-bottom: 5px; }
+        h2 { color: #0098ff; margin-top: 25px; border-left: 4px solid #0098ff; padding-left: 10px; }
+        h3 { color: #4af626; }
+        .highlight { color: #ff9800; font-weight: bold; }
+        .badge { background-color: #333; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+        ul { background-color: #1e1e1e; padding: 15px 30px; border-radius: 5px; }
+        li { margin-bottom: 10px; }
+        .footer { margin-top: 40px; text-align: center; font-size: 0.9em; color: #888; border-top: 1px solid #333; padding-top: 10px; }
+        .open-source-box { 
+            background-color: #0c0c0c; 
+            border: 1px solid #333; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin-top: 30px; 
+            font-style: italic;
+            border-left: 4px solid #4af626;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>nASR Alt Yazı Otomasyonu <span style="font-size: 12pt; color: #888;">| v1.0</span></h1>
+    <p>Yapay zeka destekli, taşınabilir ve tamamen otonom altyazı üretme motoru. <span class="highlight">Kritik Not:</span> Gerekli modeller "sadece ilk kullanımda yüklendikten sonra" ve operasyon sırasında kesinlikle <b>internet bağlantısı gerektirmez.</b> Tüm işlemler yerel donanımınız üzerinde gerçekleşir.</p>
+
+    <h2>⚙️ Genel Çalışma Mantığı ve Güvenlik Sigortaları</h2>
+    <p>nASR, sesten metne dönüşümde dünyanın en hızlı motoru olan <b>WhisperX</b> altyapısını kullanır. Program başlatıldığında arka planda çalışan "Evrensel Donanım İstihbaratı" donanımınızı analiz eder ve şu otonom sigortaları devreye sokar:</p>
+    <ul>
+        <li><b>Otomatik Donanım Kilidi:</b> Program açılışta ekran kartınızı (GPU) ve kullanılabilir hafızasını (VRAM) milimetrik olarak tarar. Eğer bilgisayarınızda uygun bir Nvidia GPU yoksa (sadece CPU varsa) veya VRAM miktarı <span class="highlight">5.5 GB</span> sınırının altındaysa, <b>Sistem Çökmesini Önlemek Amacıyla</b> large-v3 modelini otomatik olarak seçimlere kapatır.</li>
+        <li><b>CPU (İşlemci) Desteği:</b> Sistemde Nvidia kart bulunmadığında nASR pes etmez; otonom olarak işlemci moduna geçer. Ancak bu modda işlem yükü sistem RAM'ine (4-6 GB) bineceği için tarayıcı ve diğer ağır uygulamaları kapatmanız operasyon sağlığı açısından önerilir.</li>
+    </ul>
+
+    <h2>🧠 Yapay Zeka Modelleri</h2>
+    <ul>
+        <li><b>Base (Hızlı):</b> Göz açıp kapayıncaya kadar deşifre işlemini tamamlar. Günlük kullanımlar, YouTube videoları veya hızlı önizleme almak için idealdir.</li>
+        <li><b>Medium (Dengeli):</b> Hız ve doğruluk arasındaki altın orandır. VRAM dostu yapısıyla eski nesil ekran kartlarında bile yüksek doğrulukla sorunsuz çalışır.</li>
+        <li><b class="highlight">Large-v3 (Kusursuz):</b> Kelime doğruluğu, aksan ayrımı ve özellikle felsefi/teknik metinlerdeki terminolojik başarısıyla sistemin asıl şaheseridir. <i>Sadece VRAM kapasitesi yeterli olan güçlü donanımlarda aktif hale gelir.</i></li>
+    </ul>
+
+    <h2>🎛️ Filtreler ve Gelişmiş Ayarlar</h2>
+    <ul>
+        <li><b>Toplu İşlem Kuyruğu (Batch Queue):</b> Tek bir dosya ile vakit kaybetmeyin. Bir dizinin tüm sezonunu veya devasa film arşivinizi arayüze sürükleyip bırakın. nASR her dosya bitiminde VRAM'i acımasızca temizler ve bir sonraki göreve tertemiz bir hafıza ile geçer.</li>
+        <li><b>Karantina Raporu (Sıfır Metin Kirliliği):</b> Altyazı dosyanızı soru işaretleri veya düşük güvenli kelimelerle kirletmez. Modelin <span class="highlight">%60'ın altında</span> bir güvenle yazdığı kelimeleri zaman damgalarıyla birlikte harici bir <i>_karantina.txt</i> dosyasına raporlar. Bu sayede sadece şüpheli yerlere odaklanarak manuel kontrol sürenizi minimize eder.</li>
+        <li><b>Sinematografik Sessizlik (VAD Parametreleri):</b> <i>Konuşma Başlangıç</i> ve <i>Sessizlik Algılama</i> hassasiyeti ayarlarıyla oynayarak rüzgar ve müzik seslerini filtreleyebilir; "dudak kapandığında altyazı anında silinsin" kuralını milisaniyelik bir keskinlikle uygulayabilirsiniz.</li>
+        <li><b>Termal Çökme Sigortası (JSON Yedeği):</b> Eğer ekran kartınız sınırlarına dayanıp bir CUDA hatası verirse, saatler süren deşifre emeğiniz çöpe gitmez. nASR, hizalama (alignment) aşamasına geçmeden hemen önce tüm ham metni diskinize otonom olarak yedekler.</li>
+        <li><b>Ses Normalizasyonu ve Gürültü Filtresi:</b> Ses seviyeleri dengesiz olan veya dip gürültüsü yüksek videolarda tercih edilir. Sesi stüdyo standartlarına eşitlerken arka plan cızırtılarını (afftdn) temizleyerek yapay zekanın kelimeleri daha net duymasını sağlar.</li>
+        <li><b>Dolgu Kelimeleri Temizle:</b> Yabancı dildeki "uh, um, hmm, ah, er" gibi duraksamaları metinden cerrahi bir müdahale ile kazır. Bu işlem sadece metin akıcılığını artırmakla kalmaz, aynı zamanda metni <b>çeviri için çok daha uygun ve bağlamsal hale getirir.</b></li>
+        <li><b>Özel İsim / Telaffuz İpucu (Initial Prompt):</b> Modelin uydurmasını (halüsinasyon) engellemek için metinde geçecek teknik terimleri veya özel isimleri buraya virgülle yazarak modele bir "ön bilgi" verebilirsiniz.</li>
+        <li><b>Operasyon Modu:</b> 'İngilizce'ye Çevir' seçeneği, kaynak dil ne olursa olsun (Japonca, Fransızca vb.) size doğrudan zamanlanmış ve İngilizce'ye tercüme edilmiş bir altyazı dosyası sunar.</li>
+        <li><b>Otomatik Dil Tespiti:</b> Bu seçeneği kullanmak, modelin tüm dil kütüphanelerini taramasını engelleyerek operasyon sürecini hızlandırır. </b>Dil menüsündeki "Otomatik" seçeneği, videonun ilk saniyelerini analiz ederek dili kendisi bulur. </li>
+    </ul>
+
+    <h2>🎙️ Konuşmacı Ayırt Etme (Diarization)</h2>
+    <p>Diyaloglarda konuşmacı ayrımı yapmak (SPEAKER_00, SPEAKER_01 vb.) isterseniz Pyannote kütüphanesi devreye girer. Bu işlem için ücretsiz bir <span class="highlight">HuggingFace Token</span> anahtarına ihtiyacınız vardır. huggingface.co üzerinden alacağınız "Read" yetkili bir anahtarı ilgili kutucuğa yapıştırmanız yeterlidir.</p>
+
+    <div class="open-source-box">
+        nASR, bilginin ve yazılımın özgürce paylaşılması, geliştirilmesi ve duvarlar ardına hapsedilmemesi gerektiğine olan sarsılmaz inancımın bir ürünüdür. Bu proje, açık kaynak felsefesinin kolektif gücüne duyduğum saygının dijital bir tezahürüdür. Yazılımın karmaşık doğası gereği karşılaşabileceğiniz her türlü sistemsel hatayı, mantık pürüzlerini veya iyileştirme önerilerinizi <b>nutuzar@gmail.com</b> adresine bildirerek, nASR’ın evrimine katkıda bulunabilirsiniz.
+    </div>
+
+    <div class="footer">
+        developed by <b>nutuzar</b> | nASR Otomasyon v1.0
+    </div>
+
+</body>
+</html>
